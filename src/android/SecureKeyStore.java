@@ -109,7 +109,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
             // writing key to storage
             byte[] byteArray = input.getBytes("UTF-8");
-            String s = new String(encryptedBytes);
+            //String s = new String(encryptedBytes);
             //Log.i(Constants.TAG, "LENGTH: " + encryptedBytes.length);
             //Log.i(Constants.TAG, "MESSAGEM: " + s);
             //KeyStorage.writeValues(getContext(), alias, encryptedBytes);
