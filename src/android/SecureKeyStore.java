@@ -128,6 +128,10 @@ public class SecureKeyStore extends CordovaPlugin {
 
             Cipher output = Cipher.getInstance(Constants.RSA_ALGORITHM);
             output.init(Cipher.DECRYPT_MODE, privateKey);
+            byte rawoutputData = KeyStorage.readValues(getContext(), alias);
+            byte[] decryptedBytes = cipher.doFinal(rawoutputData);
+
+            /*
             CipherInputStream cipherInputStream = new CipherInputStream(
                     new ByteArrayInputStream(KeyStorage.readValues(getContext(), alias)), output);
 
@@ -140,8 +144,9 @@ public class SecureKeyStore extends CordovaPlugin {
             for (int i = 0; i < bytes.length; i++) {
                 bytes[i] = values.get(i).byteValue();
             }
+            */
 
-            String finalText = new String(bytes, 0, bytes.length, "UTF-8");
+            String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
             callbackContext.success(finalText);
 
         } catch (Exception e) {
