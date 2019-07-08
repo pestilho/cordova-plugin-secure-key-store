@@ -160,6 +160,8 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "LENGTH rawoutputData: " + rawoutputData.length);
             String rawoutputText = new String(rawoutputData, 0, rawoutputData.length, "UTF-8");
             Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
+            String[] keyEncryptedParts = rawoutputText.split("###");
+            Log.i(Constants.TAG, "keyEncryptedParts: " + keyEncryptedParts.length);
 
             //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
 
