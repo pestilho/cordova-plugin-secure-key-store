@@ -15,7 +15,7 @@ public final class KeyStorage {
         try {
             FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias, context.MODE_PRIVATE);
             String s = new String(vals);
-            Log.d("TEXTI", s);
+            Log.i(Constants.TAG, "WRITEVALUES...");
             fos.write(vals);
             fos.close();
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public final class KeyStorage {
             }
             byte[] cipherText = bos.toByteArray();
             String s = new String(cipherText);
-            Log.d("TEXTO", s);
+            Log.i(Constants.TAG, "READVALUES...");
             fis.close();
             return cipherText;
         } catch (Exception e) {
