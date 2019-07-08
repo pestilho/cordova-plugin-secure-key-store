@@ -107,8 +107,8 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             //byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
-            String s = new String(keyEncryptedParts[0]);
-            Log.i(Constants.TAG, "ENCRYPT MESSAGEM: " + s);
+            //String s = new String(keyEncryptedParts[0]);
+            //Log.i(Constants.TAG, "ENCRYPT MESSAGEM: " + s);
 
             /*
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -123,7 +123,8 @@ public class SecureKeyStore extends CordovaPlugin {
             // writing key to storage
             //byte[] byteArray = input.getBytes("UTF-8");
             //String s = new String(encryptedBytes);
-            //Log.i(Constants.TAG, "LENGTH: " + encryptedBytes.length);
+            Log.i(Constants.TAG, "LENGTH rawinputData: " + rawinputData.length);
+            Log.i(Constants.TAG, "LENGTH vals: " + vals.length);
             //Log.i(Constants.TAG, "MESSAGEM: " + s);
             KeyStorage.writeValues(getContext(), alias, vals);
             Log.i(Constants.TAG, "key created and stored successfully");
@@ -149,7 +150,8 @@ public class SecureKeyStore extends CordovaPlugin {
             Cipher cipher = Cipher.getInstance(Constants.RSA_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
-            byte[] decryptedBytes = cipher.doFinal(rawoutputData);
+            Log.i(Constants.TAG, "LENGTH rawoutputData: " + rawoutputData.length);
+            //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
 
             /*
             CipherInputStream cipherInputStream = new CipherInputStream(
@@ -166,8 +168,9 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             */
 
-            String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
-            callbackContext.success(finalText);
+            //String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
+            //callbackContext.success(finalText);
+            callbackContext.success("israel");
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
