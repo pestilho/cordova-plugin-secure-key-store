@@ -97,8 +97,8 @@ public class SecureKeyStore extends CordovaPlugin {
 
             // writing key to storage
             String s = new String(vals);
-            Log.i(Constants.TAG, "LENGTH: " + vals.length));
-            Log.i(Constants.TAG, "MESSAGEM: " + s));
+            Log.i(Constants.TAG, "LENGTH: " + vals.length);
+            Log.i(Constants.TAG, "MESSAGEM: " + s);
             KeyStorage.writeValues(getContext(), alias, vals);
             Log.i(Constants.TAG, "key created and stored successfully");
             callbackContext.success("key created and stored successfully");
