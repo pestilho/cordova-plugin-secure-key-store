@@ -112,7 +112,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
-            Log.e(Constants.TAG, e);
+            Log.e(Constants.TAG, Log.getStackTraceString(e));
             callbackContext.error(
                     "{\"code\": 9, \"api-level\": " + Build.VERSION.SDK_INT + ",\"message\": \"" + e.getMessage() + "\"}");
         }
