@@ -19,7 +19,7 @@ public final class KeyStorage {
             fos.write(vals);
             fos.close();
         } catch (Exception e) {
-            Log.e(Constants.TAG, "Exception: " + e.getMessage());
+            Log.e(Constants.TAG, "Exception writeValues: " + e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public final class KeyStorage {
             fis.close();
             return cipherText;
         } catch (Exception e) {
-            Log.e(Constants.TAG, "Exception: "  + e.getMessage());
+            Log.e(Constants.TAG, "Exception readValues: "  + e.getMessage());
             return new byte[0];
         }
     }

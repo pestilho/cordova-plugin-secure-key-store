@@ -128,7 +128,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
             Cipher cipher = Cipher.getInstance(Constants.RSA_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            byte rawoutputData = KeyStorage.readValues(getContext(), alias);
+            byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
             byte[] decryptedBytes = cipher.doFinal(rawoutputData);
 
             /*
