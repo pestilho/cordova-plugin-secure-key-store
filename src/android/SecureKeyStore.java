@@ -100,6 +100,11 @@ public class SecureKeyStore extends CordovaPlugin {
             for(int p = 0; p < keyParts.length; p++){
                 keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
             }
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            for(int p = 0; p < keyEncryptedParts.length; p++){
+                outputStream.write(keyEncryptedParts[p]);
+            }
             //byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
             String s = new String(keyEncryptedParts[0]);
@@ -112,14 +117,15 @@ public class SecureKeyStore extends CordovaPlugin {
             cipherOutputStream.close();
             byte[] vals = outputStream.toByteArray();
             */
+            byte[] vals = outputStream.toByteArray();
 
 
             // writing key to storage
-            byte[] byteArray = input.getBytes("UTF-8");
+            //byte[] byteArray = input.getBytes("UTF-8");
             //String s = new String(encryptedBytes);
             //Log.i(Constants.TAG, "LENGTH: " + encryptedBytes.length);
             //Log.i(Constants.TAG, "MESSAGEM: " + s);
-            //KeyStorage.writeValues(getContext(), alias, encryptedBytes);
+            KeyStorage.writeValues(getContext(), alias, vals);
             Log.i(Constants.TAG, "key created and stored successfully");
             callbackContext.success("key created and stored successfully");
 
