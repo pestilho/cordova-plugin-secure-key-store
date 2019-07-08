@@ -91,7 +91,7 @@ public class SecureKeyStore extends CordovaPlugin {
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, cipher);
-            cipherOutputStream.write(input.getBytes("UTF-8"));
+            cipherOutputStream.write(input.getBytes());
             cipherOutputStream.close();
             byte[] vals = outputStream.toByteArray();
 
@@ -134,7 +134,7 @@ public class SecureKeyStore extends CordovaPlugin {
                 bytes[i] = values.get(i).byteValue();
             }
 
-            String finalText = new String(bytes, 0, bytes.length, "UTF-8");
+            String finalText = new String(bytes, 0, bytes.length);
             callbackContext.success(finalText);
 
         } catch (Exception e) {
