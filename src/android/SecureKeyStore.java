@@ -102,7 +102,7 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             //byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
-            String s = new String(keyEncryptedParts[0][0]);
+            String s = new String(keyEncryptedParts[0]);
             Log.i(Constants.TAG, "ENCRYPT MESSAGEM: " + s);
 
             /*
