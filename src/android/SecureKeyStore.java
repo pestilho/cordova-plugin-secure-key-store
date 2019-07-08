@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.StringBuffer;
 import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -92,6 +94,9 @@ public class SecureKeyStore extends CordovaPlugin {
             byte[] rawinputData = input.getBytes("UTF-8");
             byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
+            byte[][] keyParts = divideArray(encryptedBytes, 128);
+            Log.i(Constants.TAG, "keyParts: " + keyParts.length);
+
             /*
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, cipher);
@@ -105,8 +110,8 @@ public class SecureKeyStore extends CordovaPlugin {
             byte[] byteArray = input.getBytes("UTF-8");
             String s = new String(encryptedBytes);
             Log.i(Constants.TAG, "LENGTH: " + encryptedBytes.length);
-            Log.i(Constants.TAG, "MESSAGEM: " + s);
-            KeyStorage.writeValues(getContext(), alias, encryptedBytes);
+            //Log.i(Constants.TAG, "MESSAGEM: " + s);
+            //KeyStorage.writeValues(getContext(), alias, encryptedBytes);
             Log.i(Constants.TAG, "key created and stored successfully");
             callbackContext.success("key created and stored successfully");
 
@@ -186,6 +191,18 @@ public class SecureKeyStore extends CordovaPlugin {
                 return Constants.KEYSTORE_PROVIDER_3;
             }
         }
+    }
+
+    private static byte[][] divideArray(byte[] source, int chunksize) {
+        byte[][] ret = new byte[(int)Math.ceil(source.length / (double)chunksize)][chunksize];
+        int start = 0;
+
+        for(int i = 0; i < ret.length; i++) {
+            ret[i] = Arrays.copyOfRange(source,start, start + chunksize);
+            start += chunksize ;
+        }
+
+        return ret;
     }
 
 }
