@@ -156,7 +156,7 @@ public class SecureKeyStore extends CordovaPlugin {
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
 
-            /*
+            
             Log.i(Constants.TAG, "LENGTH rawoutputData: " + rawoutputData.length);
             String rawoutputText = new String(rawoutputData, 0, rawoutputData.length, "UTF-8");
             Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
@@ -176,9 +176,9 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             byte[] decryptedBytes = outputStream.toByteArray();
             Log.i(Constants.TAG, "LENGTH decryptedBytes: " + decryptedBytes.length);
-            */
+            
 
-            byte[] decryptedBytes = cipher.doFinal(rawoutputData);
+            //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
 
             /*
             CipherInputStream cipherInputStream = new CipherInputStream(
@@ -201,6 +201,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
+            Log.e(Constants.TAG, Log.getStackTraceString(e));
             callbackContext.error(
                     "{\"code\": 1, \"api-level\": " + Build.VERSION.SDK_INT + ", \"message\": \"" + e.getMessage() + "\"}");
         }
