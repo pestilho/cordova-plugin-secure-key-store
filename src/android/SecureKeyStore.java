@@ -155,8 +155,7 @@ public class SecureKeyStore extends CordovaPlugin {
             Cipher cipher = Cipher.getInstance(Constants.RSA_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
-            String separatorString = new String("###");
-            byte[] separatorBytes = separatorString.getBytes("UTF-8");
+
             Log.i(Constants.TAG, "LENGTH rawoutputData: " + rawoutputData.length);
             String rawoutputText = new String(rawoutputData, 0, rawoutputData.length, "UTF-8");
             Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
@@ -164,9 +163,10 @@ public class SecureKeyStore extends CordovaPlugin {
             byte[][] keyEncryptedParts = new byte[keyStringParts.length][];
             byte[][] keyDecryptedParts = new byte[keyStringParts.length][];
             Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
+
             for(int p = 0; p < keyStringParts.length; p++){
-                keyEncryptedParts[p] = keyStringParts[p].getBytes("UTF-8");
-                keyDecryptedParts[p] = cipher.doFinal(keyEncryptedParts[p]);
+                byte[] encryptedPart = keyStringParts[p].getBytes("UTF-8");
+                keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
             }
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -174,6 +174,7 @@ public class SecureKeyStore extends CordovaPlugin {
                 outputStream.write(keyDecryptedParts[p]);
             }
             byte[] decryptedBytes = outputStream.toByteArray();
+            Log.i(Constants.TAG, "LENGTH decryptedBytes: " + decryptedBytes.length);
 
             //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
 
