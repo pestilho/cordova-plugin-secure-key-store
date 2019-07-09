@@ -38,7 +38,7 @@ public final class KeyStorage {
             return Integer.parseInt(numberStr);
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception readValues: "  + e.getMessage());
-            return new byte[0];
+            return 0;
         }
     }
 
@@ -76,7 +76,7 @@ public final class KeyStorage {
 
     public static void resetValues(Context context, String keyAlias)  {
         try {
-            context.deleteFile(Constants.SKS_FILENAME + keyAlias + part);
+            context.deleteFile(Constants.SKS_FILENAME + keyAlias);
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
         }
