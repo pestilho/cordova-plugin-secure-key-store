@@ -29,7 +29,7 @@
         <source-file src="src/android/SecureKeyStore.java" target-dir="src/com/securekeystore/plugin/SecureKeyStore" />
         <source-file src="src/android/Constants.java" target-dir="src/com/securekeystore/plugin/Constants" />
         <source-file src="src/android/KeyStorage.java" target-dir="src/com/securekeystore/plugin/KeyStorage" />
-        <source-file src="src/android/CustomDatatypeConverter.java" target-dir="src/com/securekeystore/plugin/CustomDatatypeConverter" />
+        <source-file src="src/android/DatatypeConverter.java" target-dir="src/com/securekeystore/plugin/DatatypeConverter" />
     </platform>
 
     <platform name="ios">

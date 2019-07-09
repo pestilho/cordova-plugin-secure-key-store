@@ -62,7 +62,7 @@ import javax.xml.namespace.NamespaceContext;
  *    <pre>
  *    // Customized parse method 
  *    public long myParseCal( String dateTimeString ) {
- *        java.util.Calendar cal = CustomDatatypeConverter.parseDateTime(dateTimeString);
+ *        java.util.Calendar cal = DatatypeConverter.parseDateTime(dateTimeString);
  *        long longval = convert_calendar_to_long(cal); //application specific
  *        return longval;
  *    }
@@ -70,23 +70,23 @@ import javax.xml.namespace.NamespaceContext;
  *    // Customized print method
  *    public String myPrintCal( Long longval ) {
  *        java.util.Calendar cal = convert_long_to_calendar(longval) ; //application specific
- *        String dateTimeString = CustomDatatypeConverter.printDateTime(cal);
+ *        String dateTimeString = DatatypeConverter.printDateTime(cal);
  *        return dateTimeString;
  *    }
  *    </pre>
  * </blockquote>
  * <p>
  * There is a static parse and print method corresponding to each parse and 
- * print method respectively in the {@link CustomDatatypeConverterInterface 
- * CustomDatatypeConverterInterface}. 
+ * print method respectively in the {@link DatatypeConverterInterface 
+ * DatatypeConverterInterface}. 
  * <p>
  * The static methods defined in the class can also be used to specify
  * a parse or a print method in a javaType binding declaration.
  * </p>
  * <p>
  * JAXB Providers are required to call the 
- * {@link #setCustomDatatypeConverter(CustomDatatypeConverterInterface) 
- * setCustomDatatypeConverter} api at some point before the first marshal or unmarshal 
+ * {@link #setDatatypeConverter(DatatypeConverterInterface) 
+ * setDatatypeConverter} api at some point before the first marshal or unmarshal 
  * operation (perhaps during the call to JAXBContext.newInstance).  This step is 
  * necessary to configure the converter that should be used to perform the 
  * print and parse functionality.  
@@ -100,21 +100,21 @@ import javax.xml.namespace.NamespaceContext;
  * </p>
  * 
  * @author <ul><li>Sekhar Vajjhala, Sun Microsystems, Inc.</li><li>Joe Fialli, Sun Microsystems Inc.</li><li>Kohsuke Kawaguchi, Sun Microsystems, Inc.</li><li>Ryan Shoemaker,Sun Microsystems Inc.</li></ul>
- * @see CustomDatatypeConverterInterface
+ * @see DatatypeConverterInterface
  * @see ParseConversionEvent
  * @see PrintConversionEvent
  * @since 1.6, JAXB 1.0
  */
 
-public final class CustomDatatypeConverter {
+public final class DatatypeConverter {
 
-    // delegate to this instance of CustomDatatypeConverter
-    private static volatile CustomDatatypeConverterInterface theConverter = null;
+    // delegate to this instance of DatatypeConverter
+    private static volatile DatatypeConverterInterface theConverter = null;
 
     private final static JAXBPermission SET_DATATYPE_CONVERTER_PERMISSION =
-                           new JAXBPermission("setCustomDatatypeConverter");
+                           new JAXBPermission("setDatatypeConverter");
 
-    private CustomDatatypeConverter() {
+    private DatatypeConverter() {
         // private constructor
     }
     
@@ -128,18 +128,18 @@ public final class CustomDatatypeConverter {
      * 
      * <p>
      * Calling this api repeatedly will have no effect - the 
-     * CustomDatatypeConverterInterface instance passed into the first invocation is 
+     * DatatypeConverterInterface instance passed into the first invocation is 
      * the one that will be used from then on.
      * 
      * @param converter an instance of a class that implements the 
-     * CustomDatatypeConverterInterface class - this parameter must not be null.
+     * DatatypeConverterInterface class - this parameter must not be null.
      * @throws IllegalArgumentException if the parameter is null
      * @throws SecurityException
      *      If the {@link SecurityManager} in charge denies the access to
      *      set the datatype converter. 
      * @see JAXBPermission
      */
-    public static void setCustomDatatypeConverter( CustomDatatypeConverterInterface converter ) {
+    public static void setDatatypeConverter( DatatypeConverterInterface converter ) {
         if( converter == null ) {
             throw new IllegalArgumentException( 
                 Messages.format( Messages.CONVERTER_MUST_NOT_BE_NULL ) );
@@ -152,7 +152,7 @@ public final class CustomDatatypeConverter {
     }
 
     private static synchronized void initConverter() {
-        theConverter = new CustomDatatypeConverterImpl();
+        theConverter = new DatatypeConverterImpl();
     }
     
     /**
