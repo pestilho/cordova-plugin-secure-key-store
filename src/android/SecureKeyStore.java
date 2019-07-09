@@ -4,7 +4,6 @@ package com.securekeystore.plugin;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-import org.apache.commons.codec.binary.Hex;
 
 import org.json.JSONArray;
 import org.json.JSONException;
