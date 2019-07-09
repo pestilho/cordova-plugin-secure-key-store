@@ -255,7 +255,6 @@ public class SecureKeyStore extends CordovaPlugin {
         String binaryText = new BigInteger(hexText, 16).toString(2);
         return binaryText.getBytes();
     }
-    */
 
     public static byte[] parseHexBinary(String str){
         int len = str.length();
@@ -270,6 +269,18 @@ public class SecureKeyStore extends CordovaPlugin {
             out[i / 2] = (byte) Integer.parseInt(str.substring(i, endIndx), 16);
         }
         return out;
+    }
+    */
+
+    public static byte[] parseHexBinary(String s) {
+        String preBin = new BigInteger(s, 16).toString(2);
+        Integer length = preBin.length();
+        if (length < 8) {
+            for (int i = 0; i < 8 - length; i++) {
+                preBin = "0" + preBin;
+            }
+        }
+        return preBin.getBytes("UTF-8");
     }
 
 }
