@@ -99,6 +99,7 @@ public class SecureKeyStore extends CordovaPlugin {
             
             for(int p = 0; p < keyParts.length; p++){
                 keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
+                Log.i(Constants.TAG, "keyEncryptedParts: " + keyEncryptedParts[p]);
             }
 
             String separatorString = new String("###");
@@ -168,9 +169,10 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyStringParts: " + rawStringParts.length);
 
             for(int p = 0; p < rawStringParts.length; p++){
-                byte[] encryptedPart = rawStringParts[p].getBytes();
-                Log.i(Constants.TAG, "LENGTH encryptedPart: " + encryptedPart.length);
-                keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
+                Log.i(Constants.TAG, "rawStringParts: " + rawStringParts[p]);
+                //byte[] encryptedPart = rawStringParts[p].getBytes();
+                //Log.i(Constants.TAG, "LENGTH encryptedPart: " + encryptedPart.length);
+                //keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
                 
                 //Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
             }
