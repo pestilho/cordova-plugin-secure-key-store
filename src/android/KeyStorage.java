@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 
 public final class KeyStorage {
 
-    public static void writeKeyConfig(Context context, String keyAlias, int numberPart)  {
+    public static void writeKeyConfig(Context context, String keyAlias, String numberPart)  {
         try {
             FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias + "_CONFIG", context.MODE_PRIVATE);
             Log.i(Constants.TAG, "saveKeyConfig... " + numberPart);
@@ -22,23 +22,24 @@ public final class KeyStorage {
         }
     }
 
-    public static int readKeyConfig(Context context, String keyAlias) {
+    public static String readKeyConfig(Context context, String keyAlias) {
         try {
             FileInputStream fis = context.openFileInput(Constants.SKS_FILENAME + keyAlias + "_CONFIG");
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(fis));
+
+            String line = buffer.readLine(); 
+            StringBuilder sb = new StringBuilder(); 
+            while(line != null){ 
+                line = buffer.readLine(); 
             }
-            byte[] cipherText = bos.toByteArray();
-            String numberStr = new String(cipherText);
+
+            String numberStr = sb.toString();
             Log.i(Constants.TAG, "readKeyConfig... " + numberStr);
             fis.close();
-            return Integer.parseInt(numberStr);
+            return numberStr;
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception readValues: "  + e.getMessage());
-            return 0;
+            return "0";
         }
     }
 
