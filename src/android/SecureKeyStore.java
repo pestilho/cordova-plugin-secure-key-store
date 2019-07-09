@@ -225,7 +225,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
     private void removeKeyFile(String alias, CallbackContext callbackContext) {
         try {
-            KeyStorage.resetValues(getContext(), alias);
+            KeyStorage.resetValues(getContext(), alias, "part_0");
             Log.i(Constants.TAG, "keys removed successfully");
             callbackContext.success("keys removed successfully");
 
