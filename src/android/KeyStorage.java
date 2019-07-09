@@ -11,9 +11,9 @@ import java.io.FileOutputStream;
 
 public final class KeyStorage {
 
-    public static void writeValues(Context context, String keyAlias, byte[] vals)  {
+    public static void writeValues(Context context, String keyAlias, String part, byte[] vals)  {
         try {
-            FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias, context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias + part, context.MODE_PRIVATE);
             String s = new String(vals);
             Log.i(Constants.TAG, "WRITEVALUES... " + s);
             fos.write(vals);
@@ -23,9 +23,9 @@ public final class KeyStorage {
         }
     }
 
-    public static byte[] readValues(Context context, String keyAlias) {
+    public static byte[] readValues(Context context, String keyAlias, String part) {
         try {
-            FileInputStream fis = context.openFileInput(Constants.SKS_FILENAME + keyAlias);
+            FileInputStream fis = context.openFileInput(Constants.SKS_FILENAME + keyAlias + part);
             byte[] buffer = new byte[8192];
             int bytesRead;
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -43,9 +43,9 @@ public final class KeyStorage {
         }
     }
 
-    public static void resetValues(Context context, String keyAlias)  {
+    public static void resetValues(Context context, String keyAlias, String part)  {
         try {
-            context.deleteFile(Constants.SKS_FILENAME + keyAlias);
+            context.deleteFile(Constants.SKS_FILENAME + keyAlias + part);
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
         }

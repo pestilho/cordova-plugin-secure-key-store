@@ -98,10 +98,13 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyParts: " + keyParts.length);
             
             for(int p = 0; p < keyParts.length; p++){
-                keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
-                Log.i(Constants.TAG, "keyEncryptedParts: " + keyEncryptedParts[p]);
+                //keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
+                byte[] encryptedPart = cipher.doFinal(keyParts[p]);
+                KeyStorage.writeValues(getContext(), alias, "part_"+p, encryptedPart);
+                Log.i(Constants.TAG, "keyEncryptedParts: " + encryptedPart);
             }
 
+            /*
             String separatorString = new String("###");
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] separatorBytes = separatorString.getBytes("UTF-8");
@@ -111,6 +114,7 @@ public class SecureKeyStore extends CordovaPlugin {
                     outputStream.write(separatorBytes);
                 }
             }
+            */
             //byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
             //String s = new String(keyEncryptedParts[0]);
@@ -123,16 +127,16 @@ public class SecureKeyStore extends CordovaPlugin {
             cipherOutputStream.close();
             byte[] vals = outputStream.toByteArray();
             */
-            byte[] vals = outputStream.toByteArray();
+            //byte[] vals = outputStream.toByteArray();
 
 
             // writing key to storage
             //byte[] byteArray = input.getBytes("UTF-8");
             //String s = new String(encryptedBytes);
-            Log.i(Constants.TAG, "LENGTH rawinputData: " + rawinputData.length);
-            Log.i(Constants.TAG, "LENGTH vals: " + vals.length);
+            //Log.i(Constants.TAG, "LENGTH rawinputData: " + rawinputData.length);
+            //Log.i(Constants.TAG, "LENGTH vals: " + vals.length);
             //Log.i(Constants.TAG, "MESSAGEM: " + s);
-            KeyStorage.writeValues(getContext(), alias, vals);
+            //KeyStorage.writeValues(getContext(), alias, vals);
             Log.i(Constants.TAG, "key created and stored successfully");
             callbackContext.success("key created and stored successfully");
 
@@ -155,8 +159,10 @@ public class SecureKeyStore extends CordovaPlugin {
 
             Cipher cipher = Cipher.getInstance(Constants.RSA_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
+            byte[] rawoutputData = KeyStorage.readValues(getContext(), alias, "part_0");
+            Log.i(Constants.TAG, "keyEncryptedParts: " + rawoutputData);
 
+            /*
             ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
             inputStream.write(rawoutputData);
 
@@ -204,10 +210,10 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             */
 
-            String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
-            Log.i(Constants.TAG, "TEXT finalText: " + finalText);
-            callbackContext.success(finalText);
-            //callbackContext.success("Israel");
+            //String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
+            //Log.i(Constants.TAG, "TEXT finalText: " + finalText);
+            //callbackContext.success(finalText);
+            callbackContext.success("Israel");
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
