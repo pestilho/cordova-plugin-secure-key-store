@@ -156,11 +156,11 @@ public class SecureKeyStore extends CordovaPlugin {
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] rawoutputData = KeyStorage.readValues(getContext(), alias);
 
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(rawoutputData);
+            ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
+            inputStream.write(rawoutputData);
 
-            //Log.i(Constants.TAG, "STRING outputStream: " + outputStream.toString());
-            String rawoutputText = outputStream.toString();
+            //Log.i(Constants.TAG, "STRING inputStream: " + outputStream.toString());
+            String rawoutputText = inputStream.toString();
 
             //Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
             String[] keyStringParts = rawoutputText.split("###");
