@@ -159,16 +159,13 @@ public class SecureKeyStore extends CordovaPlugin {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             outputStream.write(rawoutputData);
 
-            Log.i(Constants.TAG, "STRING outputStream: " + outputStream.toString());
-            
-            /*
-            Log.i(Constants.TAG, "LENGTH rawoutputData: " + rawoutputData.length);
-            String rawoutputText = new String(rawoutputData, 0, rawoutputData.length, "UTF-8");
-            Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
+            //Log.i(Constants.TAG, "STRING outputStream: " + outputStream.toString());
+            String rawoutputText = outputStream.toString();
+
+            //Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
             String[] keyStringParts = rawoutputText.split("###");
-            byte[][] keyEncryptedParts = new byte[keyStringParts.length][];
             byte[][] keyDecryptedParts = new byte[keyStringParts.length][];
-            Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
+            Log.i(Constants.TAG, "keyStringParts: " + keyStringParts.length);
 
             for(int p = 0; p < keyStringParts.length; p++){
                 byte[] encryptedPart = parseHexBinary(keyStringParts[p]);
@@ -184,7 +181,6 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             byte[] decryptedBytes = outputStream.toByteArray();
             Log.i(Constants.TAG, "LENGTH decryptedBytes: " + decryptedBytes.length);
-            */
             
 
             //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
@@ -204,10 +200,10 @@ public class SecureKeyStore extends CordovaPlugin {
             }
             */
 
-            //String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
-            //Log.i(Constants.TAG, "TEXT finalText: " + finalText);
-            //callbackContext.success(finalText);
-            callbackContext.success("Israel");
+            String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
+            Log.i(Constants.TAG, "TEXT finalText: " + finalText);
+            callbackContext.success(finalText);
+            //callbackContext.success("Israel");
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
