@@ -65,7 +65,7 @@ public final class KeyStorage {
             }
             byte[] cipherText = bos.toByteArray();
             String s = new String(cipherText);
-            Log.i(Constants.TAG, "READVALUES... " + s);
+            //Log.i(Constants.TAG, "READVALUES... " + s);
             fis.close();
             return cipherText;
         } catch (Exception e) {
