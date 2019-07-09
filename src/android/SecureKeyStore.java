@@ -4,6 +4,7 @@ package com.securekeystore.plugin;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.commons.codec.binary.Hex;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +33,6 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.security.auth.x500.X500Principal;
-import javax.xml.bind.DatatypeConverter;
 
 public class SecureKeyStore extends CordovaPlugin {
 
@@ -167,7 +167,7 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
 
             for(int p = 0; p < keyStringParts.length; p++){
-                byte[] encryptedPart = DatatypeConverter.parseHexBinary(keyStringParts[p]);
+                byte[] encryptedPart = Hex.decodeHex(keyStringParts[p].toCharArray());
                 Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
                 keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
             }
