@@ -101,6 +101,7 @@ public class SecureKeyStore extends CordovaPlugin {
                 keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
             }
 
+            /*
             String separatorString = new String("###");
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] separatorBytes = separatorString.getBytes("UTF-8");
@@ -110,6 +111,7 @@ public class SecureKeyStore extends CordovaPlugin {
                     outputStream.write(separatorBytes);
                 }
             }
+            */
             //byte[] encryptedBytes = cipher.doFinal(rawinputData);
 
             //String s = new String(keyEncryptedParts[0]);
@@ -122,6 +124,9 @@ public class SecureKeyStore extends CordovaPlugin {
             cipherOutputStream.close();
             byte[] vals = outputStream.toByteArray();
             */
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(keyEncryptedParts);
             byte[] vals = outputStream.toByteArray();
 
 
