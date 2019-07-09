@@ -165,7 +165,7 @@ public class SecureKeyStore extends CordovaPlugin {
             int numberParts = Integer.parseInt(numberPartString);
             if(numberParts > 0){
                 String decryptString = new String("");
-                for(var n = 0; n < numberParts; n++){
+                for(int n = 0; n < numberParts; n++){
                     byte[] partOutputData = KeyStorage.readValues(getContext(), alias, "part_0"+n);
                     byte[] partDecryptedBytes = cipher.doFinal(partOutputData);
                     String partText = new String(partDecryptedBytes, 0, partDecryptedBytes.length, "UTF-8");
@@ -178,11 +178,6 @@ public class SecureKeyStore extends CordovaPlugin {
             else{
                 callbackContext.success("{\"code\": -1}");
             }
-
-            byte[] rawoutputData = KeyStorage.readValues(getContext(), alias, "part_0");
-            Log.i(Constants.TAG, "keyEncryptedParts: " + rawoutputData);
-            byte[] decryptedBytes = cipher.doFinal(rawoutputData);
-            String numberPartString = KeyStorage.readKeyConfig(getContext(), alias);
 
             /*
             ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
