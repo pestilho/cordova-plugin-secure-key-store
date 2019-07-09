@@ -167,7 +167,7 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
 
             for(int p = 0; p < keyStringParts.length; p++){
-                byte[] encryptedPart = Hex.decodeHex(keyStringParts[p].toCharArray());
+                byte[] encryptedPart = DatatypeConverter.parseHexBinary(keyStringParts[p]);
                 Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
                 keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
             }
