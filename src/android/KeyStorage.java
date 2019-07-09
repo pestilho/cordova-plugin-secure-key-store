@@ -76,9 +76,15 @@ public final class KeyStorage {
 
     public static void resetValues(Context context, String keyAlias)  {
         try {
-            context.deleteFile(Constants.SKS_FILENAME + keyAlias);
+            String numberPartStr = readKeyConfig(context, keyAlias);
+            int numberParts = Integer.parseInt(numberPartStr);
+            if(numberParts > 0){
+                for(int n = 0; n < numberParts; n++){
+                    context.deleteFile(Constants.SKS_FILENAME + keyAlias + n);
+                }
+            }
         } catch (Exception e) {
-            Log.e(Constants.TAG, "Exception: " + e.getMessage());
+            Log.e(Constants.TAG, "Exception resetValues: " + e.getMessage());
         }
 
     }    
