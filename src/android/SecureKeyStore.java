@@ -32,6 +32,7 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.security.auth.x500.X500Principal;
+import javax.xml.bind.DatatypeConverter;
 
 public class SecureKeyStore extends CordovaPlugin {
 
@@ -166,7 +167,7 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
 
             for(int p = 0; p < keyStringParts.length; p++){
-                byte[] encryptedPart = keyStringParts[p].getBytes();
+                byte[] encryptedPart = DatatypeConverter.parseHexBinary(keyStringParts[p]);
                 Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
                 keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
             }
