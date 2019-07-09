@@ -99,45 +99,11 @@ public class SecureKeyStore extends CordovaPlugin {
             KeyStorage.writeKeyConfig(getContext(), alias, keyParts.length+"");
             
             for(int p = 0; p < keyParts.length; p++){
-                //keyEncryptedParts[p] = cipher.doFinal(keyParts[p]);
                 byte[] encryptedPart = cipher.doFinal(keyParts[p]);
                 KeyStorage.writeValues(getContext(), alias, "part_"+p, encryptedPart);
                 Log.i(Constants.TAG, "keyEncryptedParts: " + encryptedPart);
             }
 
-            /*
-            String separatorString = new String("###");
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] separatorBytes = separatorString.getBytes("UTF-8");
-            for(int p = 0; p < keyEncryptedParts.length; p++){
-                outputStream.write(keyEncryptedParts[p]);
-                if(p < keyEncryptedParts.length - 1){
-                    outputStream.write(separatorBytes);
-                }
-            }
-            */
-            //byte[] encryptedBytes = cipher.doFinal(rawinputData);
-
-            //String s = new String(keyEncryptedParts[0]);
-            //Log.i(Constants.TAG, "ENCRYPT MESSAGEM: " + s);
-
-            /*
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, cipher);
-            cipherOutputStream.write(input.getBytes("UTF-8"));
-            cipherOutputStream.close();
-            byte[] vals = outputStream.toByteArray();
-            */
-            //byte[] vals = outputStream.toByteArray();
-
-
-            // writing key to storage
-            //byte[] byteArray = input.getBytes("UTF-8");
-            //String s = new String(encryptedBytes);
-            //Log.i(Constants.TAG, "LENGTH rawinputData: " + rawinputData.length);
-            //Log.i(Constants.TAG, "LENGTH vals: " + vals.length);
-            //Log.i(Constants.TAG, "MESSAGEM: " + s);
-            //KeyStorage.writeValues(getContext(), alias, vals);
             Log.i(Constants.TAG, "key created and stored successfully");
             callbackContext.success("key created and stored successfully");
 
@@ -179,59 +145,6 @@ public class SecureKeyStore extends CordovaPlugin {
             else{
                 callbackContext.success("{\"code\": -1}");
             }
-
-            /*
-            ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
-            inputStream.write(rawoutputData);
-
-            //Log.i(Constants.TAG, "STRING inputStream: " + outputStream.toString());
-            String rawoutputText = inputStream.toString();
-
-            //Log.i(Constants.TAG, "TEXT rawoutputData: " + rawoutputText);
-            String[] rawStringParts = rawoutputText.split("###");
-            byte[][] keyDecryptedParts = new byte[rawStringParts.length][];
-            Log.i(Constants.TAG, "keyStringParts: " + rawStringParts.length);
-
-            for(int p = 0; p < rawStringParts.length; p++){
-                Log.i(Constants.TAG, "rawStringParts: " + rawStringParts[p]);
-                //byte[] encryptedPart = rawStringParts[p].getBytes();
-                //Log.i(Constants.TAG, "LENGTH encryptedPart: " + encryptedPart.length);
-                //keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
-                
-                //Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
-            }
-
-
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            for(int p = 0; p < keyDecryptedParts.length; p++){
-                outputStream.write(keyDecryptedParts[p]);
-            }
-            byte[] decryptedBytes = outputStream.toByteArray();
-            Log.i(Constants.TAG, "LENGTH decryptedBytes: " + decryptedBytes.length);
-            
-
-            //byte[] decryptedBytes = cipher.doFinal(rawoutputData);
-
-            /*
-            CipherInputStream cipherInputStream = new CipherInputStream(
-                    new ByteArrayInputStream(KeyStorage.readValues(getContext(), alias)), output);
-
-            ArrayList<Byte> values = new ArrayList<Byte>();
-            int nextByte;
-            while ((nextByte = cipherInputStream.read()) != -1) {
-                values.add((byte) nextByte);
-            }
-            byte[] bytes = new byte[values.size()];
-            for (int i = 0; i < bytes.length; i++) {
-                bytes[i] = values.get(i).byteValue();
-            }
-            */
-
-            //String finalText = new String(decryptedBytes, 0, decryptedBytes.length, "UTF-8");
-            //Log.i(Constants.TAG, "TEXT finalText: " + finalText);
-            //callbackContext.success(finalText);
-            //callbackContext.success("Israel");
 
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception: " + e.getMessage());
@@ -277,56 +190,11 @@ public class SecureKeyStore extends CordovaPlugin {
         int start = 0;
 
         for(int i = 0; i < ret.length; i++) {
-            ret[i] = Arrays.copyOfRange(source,start, start + chunksize);
-            start += chunksize ;
+            byte partBytes = Arrays.copyOfRange(source,start, start + chunksize);
+            ret[i] = new String(partBytes).trim().getBytes();
+            start += chunksize;
         }
 
         return ret;
     }
-    /*
-    private static byte[] parseHexBinary(String hexText){
-        String binaryText = new BigInteger(hexText, 16).toString(2);
-        return binaryText.getBytes();
-    }
-    */
-
-    /*
-    public static byte[] parseHexBinary(String str){
-        int len = str.length();
-        byte[] out = new byte[len / 2];
-        int endIndx;
-
-        for (int i = 0; i < len; i = i + 2)
-        {
-            endIndx = i + 2;
-            if (endIndx > len)
-                endIndx = len - 1;
-            out[i / 2] = (byte) Integer.parseInt(str.substring(i, endIndx), 16);
-        }
-        return out;
-    }
-    */
-
-    public static byte[] parseHexBinary(String s) {
-    int len = s.length();
-    byte[] data = new byte[len / 2];
-    for (int i = 0; i < len; i += 2) {
-        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                             + Character.digit(s.charAt(i+1), 16));
-    }
-    return data;
-}
-    
-    /*
-    public static byte[] parseHexBinary(String s) {
-        String preBin = new BigInteger(s, 16).toString(2);
-        Integer length = preBin.length();
-        if (length < 8) {
-            for (int i = 0; i < 8 - length; i++) {
-                preBin = "0" + preBin;
-            }
-        }
-        return preBin.getBytes();
-    }
-    */
 }
