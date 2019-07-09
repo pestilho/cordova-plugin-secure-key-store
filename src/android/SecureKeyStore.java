@@ -164,13 +164,13 @@ public class SecureKeyStore extends CordovaPlugin {
             String numberPartString = KeyStorage.readKeyConfig(getContext(), alias);
             int numberParts = Integer.parseInt(numberPartString);
             if(numberParts > 0){
-                String decryptString = new String("");
+                String decryptString = "";
                 for(int n = 0; n < numberParts; n++){
                     byte[] partOutputData = KeyStorage.readValues(getContext(), alias, "part_"+n);
                     byte[] partDecryptedBytes = cipher.doFinal(partOutputData);
                     String partText = new String(partDecryptedBytes, 0, partDecryptedBytes.length, "UTF-8");
                     Log.i(Constants.TAG, "TEXT partText: " + partText);
-                    decryptString.concat(partText);
+                    decryptString += partText;
                 }
 
                 Log.i(Constants.TAG, "TEXT finalText: " + decryptString);
