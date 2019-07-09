@@ -253,7 +253,7 @@ public class SecureKeyStore extends CordovaPlugin {
 
     private static byte[] parseHexBinary(String hexText){
         String binaryText = new BigInteger(hexText, 16).toString(2);
-        return binaryText.getBytes("UTF-8");
+        return binaryText.getBytes();
     }
 
 }
