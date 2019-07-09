@@ -15,7 +15,7 @@ public final class KeyStorage {
         try {
             FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias + "_CONFIG", context.MODE_PRIVATE);
             Log.i(Constants.TAG, "saveKeyConfig... " + numberPart);
-            fos.write(numberPart);
+            fos.write(numberPart.getBytes("UTF-8"));
             fos.close();
         } catch (Exception e) {
             Log.e(Constants.TAG, "Exception saveKeyConfig: " + e.getMessage());
@@ -25,20 +25,19 @@ public final class KeyStorage {
     public static String readKeyConfig(Context context, String keyAlias) {
         try {
             FileInputStream fis = context.openFileInput(Constants.SKS_FILENAME + keyAlias + "_CONFIG");
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(fis));
-
-            String line = buffer.readLine(); 
-            StringBuilder sb = new StringBuilder(); 
-            while(line != null){ 
-                line = buffer.readLine(); 
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                bos.write(buffer, 0, bytesRead);
             }
-
-            String numberStr = sb.toString();
-            Log.i(Constants.TAG, "readKeyConfig... " + numberStr);
+            byte[] numberTextBytes = bos.toByteArray();
+            String numberString = new String(numberTextBytes, 0, numberTextBytes.length, "UTF-8");
+            Log.i(Constants.TAG, "readKeyConfig... " + numberString);
             fis.close();
-            return numberStr;
+            return numberString;
         } catch (Exception e) {
-            Log.e(Constants.TAG, "Exception readValues: "  + e.getMessage());
+            Log.e(Constants.TAG, "Exception readKeyConfig: "  + e.getMessage());
             return "0";
         }
     }
