@@ -167,7 +167,7 @@ public class SecureKeyStore extends CordovaPlugin {
             Log.i(Constants.TAG, "keyEncryptedParts: " + keyStringParts.length);
 
             for(int p = 0; p < keyStringParts.length; p++){
-                byte[] encryptedPart = DatatypeConverter.parseHexBinary(keyStringParts[p]);
+                byte[] encryptedPart = parseHexBinary(keyStringParts[p]);
                 Log.i(Constants.TAG, "BLOCK LENGTH: " + encryptedPart.length);
                 keyDecryptedParts[p] = cipher.doFinal(encryptedPart);
             }
@@ -250,6 +250,11 @@ public class SecureKeyStore extends CordovaPlugin {
         }
 
         return ret;
+    }
+
+    private static byte[] parseHexBinary(String hexText){
+        String binaryText = new BigInteger(hexText, 16).toString(2);
+        return binaryText.getBytes("UTF-8");
     }
 
 }
