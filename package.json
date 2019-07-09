@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-secure-key-store",
+  "name": "cordova-plugin-secure-key-store-pestilho",
   "version": "1.5.6",
   "description": "Cordova plugin for securely saving keys, passwords or strings on devices.",
   "cordova": {
-    "id": "cordova-plugin-secure-key-store",
+    "id": "cordova-plugin-secure-key-store-pestilho",
     "platforms": ["android", "ios"]
   },
   "repository": {
