@@ -190,7 +190,7 @@ public class SecureKeyStore extends CordovaPlugin {
         int start = 0;
 
         for(int i = 0; i < ret.length; i++) {
-            byte partBytes = Arrays.copyOfRange(source,start, start + chunksize);
+            byte[] partBytes = Arrays.copyOfRange(source,start, start + chunksize);
             ret[i] = new String(partBytes).trim().getBytes();
             start += chunksize;
         }
