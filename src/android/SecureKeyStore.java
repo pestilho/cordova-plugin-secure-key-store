@@ -280,7 +280,7 @@ public class SecureKeyStore extends CordovaPlugin {
                 preBin = "0" + preBin;
             }
         }
-        return preBin.getBytes("UTF-8");
+        return preBin.getBytes();
     }
 
 }
