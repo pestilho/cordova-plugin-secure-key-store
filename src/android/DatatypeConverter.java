@@ -106,7 +106,7 @@ import javax.xml.namespace.NamespaceContext;
  * @since 1.6, JAXB 1.0
  */
 
-final public class CustomDatatypeConverter {
+public final class CustomDatatypeConverter {
 
     // delegate to this instance of CustomDatatypeConverter
     private static volatile CustomDatatypeConverterInterface theConverter = null;
