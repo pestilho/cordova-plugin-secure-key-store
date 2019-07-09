@@ -250,10 +250,26 @@ public class SecureKeyStore extends CordovaPlugin {
 
         return ret;
     }
-
+    /*
     private static byte[] parseHexBinary(String hexText){
         String binaryText = new BigInteger(hexText, 16).toString(2);
         return binaryText.getBytes();
+    }
+    */
+
+    public static byte[] parseHexBinary(String str){
+        int len = str.length();
+        byte[] out = new byte[len / 2];
+        int endIndx;
+
+        for (int i = 0; i < len; i = i + 2)
+        {
+            endIndx = i + 2;
+            if (endIndx > len)
+                endIndx = len - 1;
+            out[i / 2] = (byte) Integer.parseInt(str.substring(i, endIndx), 16);
+        }
+        return out;
     }
 
 }
