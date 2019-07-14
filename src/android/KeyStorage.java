@@ -82,7 +82,7 @@ public final class KeyStorage {
                     Log.i(Constants.TAG, returnFlag+"");
                     */
 
-                    String dir = getFilesDir().getAbsolutePath();
+                    String dir = context.getFilesDir().getAbsolutePath();
                     File f0 = new File(dir, Constants.SKS_FILENAME + keyAlias + n);
                     boolean d0 = f0.delete(); 
                     Log.i(Constants.TAG, "File deleted: " + d0);
