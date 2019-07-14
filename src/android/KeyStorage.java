@@ -54,6 +54,7 @@ public final class KeyStorage {
 
     public static byte[] readValues(Context context, String keyAlias, String part) {
         try {
+            Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + part);
             FileInputStream fis = context.openFileInput(Constants.SKS_FILENAME + keyAlias + part);
             byte[] buffer = new byte[8192];
             int bytesRead;
