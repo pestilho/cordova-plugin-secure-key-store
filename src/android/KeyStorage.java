@@ -78,7 +78,7 @@ public final class KeyStorage {
             if(numberParts > 0){
                 for(int n = 0; n < numberParts; n++){
                     Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + "part_"+ n);
-                    String filename = Constants.SKS_FILENAME + keyAlias + Integer.toString(n);
+                    String filename = Constants.SKS_FILENAME + keyAlias + "part_"+ n;
                     boolean returnFlag = context.deleteFile(filename);
                     Log.i(Constants.TAG, returnFlag+"");
                     
