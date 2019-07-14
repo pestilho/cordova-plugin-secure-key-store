@@ -76,16 +76,11 @@ public final class KeyStorage {
             int numberParts = Integer.parseInt(numberPartStr);
             if(numberParts > 0){
                 for(int n = 0; n < numberParts; n++){
-                    /*
                     Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + n);
-                    boolean returnFlag = context.deleteFile(Constants.SKS_FILENAME + keyAlias + n);
+                    String filename = Constants.SKS_FILENAME + keyAlias + Integer.toString(n);
+                    boolean returnFlag = context.deleteFile(filename);
                     Log.i(Constants.TAG, returnFlag+"");
-                    */
-
-                    String dir = context.getFilesDir().getAbsolutePath();
-                    File f0 = new File(dir, Constants.SKS_FILENAME + keyAlias + n);
-                    boolean d0 = f0.delete(); 
-                    Log.i(Constants.TAG, "File deleted: " + d0);
+                    
                 }
             }
         } catch (Exception e) {
