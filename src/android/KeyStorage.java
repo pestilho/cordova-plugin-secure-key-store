@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -75,9 +76,16 @@ public final class KeyStorage {
             int numberParts = Integer.parseInt(numberPartStr);
             if(numberParts > 0){
                 for(int n = 0; n < numberParts; n++){
+                    /*
                     Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + n);
                     boolean returnFlag = context.deleteFile(Constants.SKS_FILENAME + keyAlias + n);
                     Log.i(Constants.TAG, returnFlag+"");
+                    */
+
+                    String dir = getFilesDir().getAbsolutePath();
+                    File f0 = new File(dir, Constants.SKS_FILENAME + keyAlias + n);
+                    boolean d0 = f0.delete(); 
+                    Log.i(Constants.TAG, "File deleted: " + d0);
                 }
             }
         } catch (Exception e) {
