@@ -14,7 +14,6 @@ public final class KeyStorage {
     public static void writeKeyConfig(Context context, String keyAlias, String numberPart)  {
         try {
             FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias + "_CONFIG", context.MODE_PRIVATE);
-            Log.i(Constants.TAG, "saveKeyConfig... " + numberPart);
             fos.write(numberPart.getBytes("UTF-8"));
             fos.close();
         } catch (Exception e) {
@@ -33,7 +32,6 @@ public final class KeyStorage {
             }
             byte[] numberTextBytes = bos.toByteArray();
             String numberString = new String(numberTextBytes, 0, numberTextBytes.length, "UTF-8");
-            Log.i(Constants.TAG, "readKeyConfig... " + numberString);
             fis.close();
             return numberString;
         } catch (Exception e) {
@@ -46,7 +44,6 @@ public final class KeyStorage {
         try {
             FileOutputStream fos = context.openFileOutput(Constants.SKS_FILENAME + keyAlias + part, context.MODE_PRIVATE);
             String s = new String(vals);
-            Log.i(Constants.TAG, "WRITEVALUES... " + s);
             fos.write(vals);
             fos.close();
         } catch (Exception e) {
@@ -64,8 +61,6 @@ public final class KeyStorage {
                 bos.write(buffer, 0, bytesRead);
             }
             byte[] cipherText = bos.toByteArray();
-            String s = new String(cipherText);
-            //Log.i(Constants.TAG, "READVALUES... " + s);
             fis.close();
             return cipherText;
         } catch (Exception e) {
@@ -80,6 +75,7 @@ public final class KeyStorage {
             int numberParts = Integer.parseInt(numberPartStr);
             if(numberParts > 0){
                 for(int n = 0; n < numberParts; n++){
+                    Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + n);
                     context.deleteFile(Constants.SKS_FILENAME + keyAlias + n);
                 }
             }
