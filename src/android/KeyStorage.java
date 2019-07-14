@@ -76,7 +76,8 @@ public final class KeyStorage {
             if(numberParts > 0){
                 for(int n = 0; n < numberParts; n++){
                     Log.i(Constants.TAG, Constants.SKS_FILENAME + keyAlias + n);
-                    Log.i(Constants.TAG, context.deleteFile(Constants.SKS_FILENAME + keyAlias + n));
+                    boolean returnFlag = context.deleteFile(Constants.SKS_FILENAME + keyAlias + n);
+                    Log.i(Constants.TAG, returnFlag+"");
                 }
             }
         } catch (Exception e) {
