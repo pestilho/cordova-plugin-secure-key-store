@@ -47,7 +47,13 @@ public class SecureKeyStore extends CordovaPlugin {
 
         if (action.equals("get")) {
             String alias = args.getString(0);
-            this.decrypt(alias, callbackContext);
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    this.decrypt(alias, callbackContext);
+                }
+            });
+            
             return true;
         }
 
