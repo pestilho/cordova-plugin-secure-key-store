@@ -36,7 +36,7 @@ import javax.security.auth.x500.X500Principal;
 public class SecureKeyStore extends CordovaPlugin {
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("set")) {
             String alias = args.getString(0);
@@ -46,7 +46,7 @@ public class SecureKeyStore extends CordovaPlugin {
         }
 
         if (action.equals("get")) {
-            String alias = args.getString(0);
+            final String alias = args.getString(0);
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
