@@ -39,9 +39,14 @@ public class SecureKeyStore extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("set")) {
-            String alias = args.getString(0);
-            String input = args.getString(1);
-            this.encrypt(alias, input, callbackContext);
+            final String alias = args.getString(0);
+            final String input = args.getString(1);
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    encrypt(alias, input, callbackContext);
+                }
+            });
             return true;
         }
 
@@ -58,8 +63,13 @@ public class SecureKeyStore extends CordovaPlugin {
         }
 
         if (action.equals("remove")) {
-            String alias = args.getString(0);
-            this.removeKeyFile(alias, callbackContext);
+            final String alias = args.getString(0);
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    removeKeyFile(alias, callbackContext);
+                }
+            });
             return true;
         }
 
