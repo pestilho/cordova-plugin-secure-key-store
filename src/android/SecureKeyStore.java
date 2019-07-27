@@ -50,7 +50,7 @@ public class SecureKeyStore extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-                    this.decrypt(alias, callbackContext);
+                    decrypt(alias, callbackContext);
                 }
             });
             
